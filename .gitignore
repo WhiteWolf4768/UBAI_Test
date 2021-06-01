@@ -1,0 +1,23 @@
+/libs
+
+*.class
+
+
+/target/
+!.mvn/wrapper/maven-wrapper.jar
+
+
+
+### IntelliJ IDEA ###
+
+*.iws
+*.iml
+*.ipr
+/out
+/build/
+/.idea
+/deps/
+/common/target/
+spring/target
+
+common/src/main/java/META-INF/MANIFEST.MF
