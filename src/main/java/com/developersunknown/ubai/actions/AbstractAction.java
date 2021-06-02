@@ -12,7 +12,7 @@ import java.util.List;
 
 @Data
 @Slf4j
-public abstract class Action implements ActionInterface {
+public abstract class AbstractAction implements BotAction {
 
     private String actionId;
     private float modificationFactor;
@@ -22,7 +22,7 @@ public abstract class Action implements ActionInterface {
 
     protected List<Sense> senseList;
 
-    public Action(String actionId, float actionWeight, float momentumWeight, List<Sense> senseList) {
+    public AbstractAction(String actionId, float actionWeight, float momentumWeight, List<Sense> senseList) {
         this.actionId = actionId;
         this.actionWeight = actionWeight;
         this.momentumWeight = momentumWeight;
@@ -40,14 +40,17 @@ public abstract class Action implements ActionInterface {
         log.info("Modification factor = 1 - (1 / {})", senseList.size());
         List<Float> adjustedSenseScoreList = new ArrayList<>();
 
-        senseList.forEach(sense -> {
+        for (Sense sense : senseList) {
             float senseScore = sense.calculateScore();
             log.info("Sense score for {} = {}", sense.getSenseId(), senseScore);
+
             Float ass = senseScore * (1 + modificationFactor * (1 - senseScore));
+
             log.info("Adjusted Sense score for {} = {}", sense.getSenseId(), ass);
             log.info("Adjusted Sense score = {} * (1 + {} * (1 - {}))", senseScore, modificationFactor, senseScore);
+
             adjustedSenseScoreList.add(ass);
-        });
+        }
 
         StringBuilder stringBuilder = new StringBuilder();
 
@@ -70,9 +73,9 @@ public abstract class Action implements ActionInterface {
 
         float actionScore = completeAss * actionWeight;
 
-        log.info("Action score for action: {} = {}", actionId, actionScore);
-        log.info("Action score = ({}) * {}", stringBuilder, actionWeight);
-        log.info("Action score = {} * {}", completeAss, actionWeight);
+        log.info("AbstractAction score for action: {} = {}", actionId, actionScore);
+        log.info("AbstractAction score = ({}) * {}", stringBuilder, actionWeight);
+        log.info("AbstractAction score = {} * {}", completeAss, actionWeight);
 
         return actionScore;
     }

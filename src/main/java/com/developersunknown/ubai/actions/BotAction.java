@@ -1,5 +1,5 @@
 package com.developersunknown.ubai.actions;
 
-public interface ActionInterface {
+public interface BotAction {
     float calculateWeight();
 }

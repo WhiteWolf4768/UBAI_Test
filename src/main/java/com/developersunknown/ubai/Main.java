@@ -1,6 +1,6 @@
 package com.developersunknown.ubai;
 
-import com.developersunknown.ubai.actions.Action;
+import com.developersunknown.ubai.actions.AbstractAction;
 import com.developersunknown.ubai.actions.impl.HealerHealingX;
 import com.developersunknown.ubai.behaviors.healer.HealerBehavior;
 import com.developersunknown.ubai.bot.Bot;
@@ -35,6 +35,9 @@ public class Main {
         HealsLeft healsLeft = new HealsLeft("healsLeft", playerPuff, Map.of("min_value", List.of(0f, 0.0f),
                 "max_value", List.of(2f, 1.0f)));
 
+        //Const Sense
+        ConstantSense constantSense = new ConstantSense("constantSense", Map.of("const", List.of(1.0f)));
+
         //Mcloud
         TargetClass targetClass = new TargetClass("targetClass", mcLoud, Map.of("tank", List.of(1f),
                 "stormtrooper", List.of(0.3f),
@@ -54,7 +57,7 @@ public class Main {
         DegreeToTarget degreeToTarget = new DegreeToTarget("degreeToTarget", playerPuff, mcLoud, Map.of("min_value", List.of(120f, 1.0f),
                 "max_value", List.of(180f, 0.0f)));
 
-        sensesMcLoud.addAll(List.of(targetClass, targetOnSpot, targetDistance, isTargetNearShield, targetHpPoints, healsLeft, isTargetPlayer, degreeToTarget));
+        sensesMcLoud.addAll(List.of(targetClass, targetOnSpot, targetDistance, isTargetNearShield, targetHpPoints, healsLeft, isTargetPlayer, degreeToTarget, constantSense));
 
         //Crystal
         TargetClass targetClass2 = new TargetClass("targetClass", crystal, Map.of("tank", List.of(1f),
@@ -75,12 +78,12 @@ public class Main {
         DegreeToTarget degreeToTarget2 = new DegreeToTarget("degreeToTarget", playerPuff, crystal, Map.of("min_value", List.of(120f, 1.0f),
                 "max_value", List.of(180f, 0.0f)));
 
-        sensesCrystal.addAll(List.of(targetClass2, targetOnSpot2, targetDistance2, isTargetNearShield2, targetHpPoints2, healsLeft, isTargetPlayer2, degreeToTarget2));
+        sensesCrystal.addAll(List.of(targetClass2, targetOnSpot2, targetDistance2, isTargetNearShield2, targetHpPoints2, healsLeft, isTargetPlayer2, degreeToTarget2, constantSense));
 
         HealerHealingX healerHealingMcLoud = new HealerHealingX("healerHealingMcloud", 1, 3, sensesMcLoud);
         HealerHealingX healerHealingCrystal = new HealerHealingX("healerHealingCrystal", 1, 3, sensesCrystal);
 
-        List<Action> actionList = new ArrayList();
+        List<AbstractAction> actionList = new ArrayList();
 
         actionList.addAll(List.of(healerHealingMcLoud, healerHealingCrystal));
 

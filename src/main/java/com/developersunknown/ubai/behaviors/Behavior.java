@@ -1,6 +1,6 @@
 package com.developersunknown.ubai.behaviors;
 
-import com.developersunknown.ubai.actions.Action;
+import com.developersunknown.ubai.actions.AbstractAction;
 
 import java.util.List;
 
@@ -8,14 +8,14 @@ public class Behavior {
 
     protected final String behaviorId;
 
-    protected final List<Action> actionList;
+    protected final List<AbstractAction> actionList;
 
-    public Behavior(String behaviorId, List<Action> actionList) {
+    public Behavior(String behaviorId, List<AbstractAction> actionList) {
         this.behaviorId = behaviorId;
         this.actionList = actionList;
     }
 
-    public Action chooseAction() {
+    public AbstractAction chooseAction() {
         return null;
     }
 }
